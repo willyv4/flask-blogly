@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/static/style.css" />
+{% include 'navbar.html' %}
+
+<h1 class="title">Edit a user</h1>
+<form action="/users/{{ user_id }}/edit" method="POST">
+  <input type="hidden" name="user_id" value="{{ user_id }}" />
+  <label for="first_name">First name</label>
+  <input type="text" name="first_name" required />
+  <label for="last_name">Last name</label>
+  <input type="text" name="last_name" required />
+  <label for="image_url">Image URL</label>
+  <input type="text" name="image_url" />
+  <button>Save Changes</button>
+</form>
+<a href="/users/{{ user_id }}"><button>Cancel</button></a>

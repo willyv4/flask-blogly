@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="/static/style.css" />
+{% include 'navbar.html' %}
+
+<h1>Creat a user</h1>
+<form action="/users/new" method="POST">
+  <label for="first_name">First name</label>
+  <input type="text" name="first_name" required />
+  <label for="last_name">Last name</label>
+  <input type="text" name="last_name" required />
+  <label for="image_url">Image URL</label>
+  <input type="text" name="image_url" />
+  <button>Submit User</button>
+</form>

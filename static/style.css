@@ -1,0 +1,124 @@
+#user-img {
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    padding: 5%;
+    object-fit: cover; 
+}
+
+#img-nav {
+  width: 50px;
+  height: 50px;
+}
+
+ul{
+    padding: 5%;
+}
+
+div {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}
+
+input {
+    width: 250px;
+    height: 25px;
+}
+
+label {
+    padding-top: 5px;
+}
+
+nav {
+
+    margin: -8px;
+    height: 50px;
+    align-items: center;
+    background-color: rgb(33, 136, 240);
+}
+
+.nav-bar {
+    margin-left: 5%;
+    color: black;
+}
+
+section {
+    background-color:  rgb(221, 221, 221);
+    width: 400px;
+    border-radius: 3px;
+
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+
+a:hover {
+    text-decoration: underline;
+}
+
+#add-button {
+    position: absolute;
+    background-color: rgb(80, 190, 137);
+    border: none;
+    height: 40px;
+    width: 100px;
+    border-radius: 2px;
+    transition: .3s ease-in-out;
+    margin-top: -60px;
+    justify-content: center;
+}
+
+#add-button:hover {
+    background-color: rgb(143, 209, 177);
+}
+
+.title {
+    background-color: grey;
+    height: 40px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.edit-button {
+    margin-top: 10px;
+    width: 250px;
+    height: 35px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    border:none ;
+    background-color: rgb(80, 190, 137);
+    transition: .3s ease-in-out;
+}
+
+.edit-button:hover {
+    background-color: rgb(143, 209, 177);
+}
+
+.delete-button {
+    margin-top: 10px;
+    width: 250px;
+    height: 35px;
+    border-radius: 2px;
+    border: none;
+    text-transform: uppercase;
+    background-color: rgb(241, 121, 121);
+    transition: .3s ease-in-out;
+}
+
+.delete-button:hover {
+    background-color: rgb(231, 145, 145);
+}
