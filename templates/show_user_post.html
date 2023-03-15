@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/static/style.css" />
+<div class="form">
+  <h1>{{ post.title}}</h1>
+
+  <p>{{ post.content}}</p>
+
+  <p>by {{user.first_name}} {{user.last_name}}</p>
+
+  <a href="/posts/{{post.id}}/edit"
+    ><button class="edit-button">Edit</button></a
+  >
+  <form action="/posts/{{post.id}}/delete" method="POST">
+    <input type="hidden" name="_method" value="{{post.id}}" />
+    <button type="submit" class="delete-button">Delete</button>
+  </form>
+</div>
+<a href="/users/{{user.id}}"><button id="add-button">Cancel</button></a>

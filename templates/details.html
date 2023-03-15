@@ -5,22 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/style.css" />
+
     <title>Document</title>
   </head>
   <body>
     {% include 'navbar.html' %}
-    <div>
-      <img id="user-img" src="{{user.image_url}}" alt="nothing" />
-      <h1>{{ user.first_name }} {{user.last_name}}</12>
-    </div>
-    <div>
-        <a href="/users/{{user.id}}/edit"><button class="edit-button">Edit</button></a>
+    <section class="user-details">
+      <div class="user-blob">
+        <img id="user-img" src="{{user.image_url}}" alt="nothing" />
+        <h1>{{ user.first_name }} {{user.last_name}}</h1>
+
+        <a href="/users/{{user.id}}/edit"
+          ><button class="edit-button">Edit {{user.first_name}}</button></a
+        >
 
         <form method="POST" action="/users/{{ user.id }}/delete">
-            <input type="hidden" name="_method" value="{{user.id}}">
-            <button type="submit" class="delete-button">Delete User</button>
-        </form>        
-    </div>
-    
+          <input type="hidden" name="_method" value="{{user.id}}" />
+          <button type="submit" class="delete-button">
+            Delete {{user.first_name}}
+          </button>
+        </form>
+      </div>
+
+      <div class="user-posts-card">
+        <div class="user-header2">
+          <h1 class="title">Posts</h1>
+          <a href="/users/{{user.id}}/posts/new"
+            ><button id="add-button">Add Post</button></a
+          >
+        </div>
+        {% if posts %}
+        <ul>
+          {% for post in posts %}
+
+          <li>
+            <a href="/posts/{{post.id}}">{{post.title}}</a>
+          </li>
+          {% endfor %} {% else %}
+          <h3>You haven't posted yet</h3>
+          {% endif %}
+        </ul>
+      </div>
+    </section>
   </body>
 </html>
