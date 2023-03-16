@@ -8,6 +8,15 @@
   <input type="text" name="title" required />
   <label for="last_name">Content</label>
   <textarea type="text" name="content" required /></textarea>
+
+
+    {% for tag in tags %}
+      <label>
+        <input id="checkbox" type="checkbox" name="name" value="{{tag.name}}">
+        {{tag.name}}
+      </label>
+    {% endfor %}
+
   <button class="edit-button">Submit User</button>
 </form>
 

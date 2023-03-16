@@ -1,0 +1,8 @@
+<h1>Edit Tag</h1>
+<form class="form" action="/tags/{{tag.id}}/edit" method="POST">
+  <label for="name">Tag name</label>
+  <input type="text" name="name" required />
+  <button class="edit-button">Edit Tag</button>
+</form>
+
+<a href="/tags/{{tag.id}}"><button id="add-button">Cancel</button></a>

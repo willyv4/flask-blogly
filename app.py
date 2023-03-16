@@ -1,9 +1,7 @@
 """Blogly application."""
 
-from crypt import methods
-from urllib.parse import uses_relative
 from flask import Flask, redirect, render_template, request
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 
 
 app = Flask(__name__)
@@ -117,8 +115,9 @@ def show_add_user_form(user_id):
     """
 
     user = User.query.get(user_id)
+    tags = Tag.query.all()
 
-    return render_template('add_post.html', user=user)
+    return render_template('add_post.html', user=user, tags=tags)
 
 
 @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
@@ -127,20 +126,40 @@ def submit_add_user_form(user_id):
     Creates a new post for the user with the given user_id and redirects to the user's details page.
     """
 
-    user = User.query.get(user_id)
-
     title = request.form['title']
     content = request.form['content']
-    user_id = user.id
+    tag_names = request.form.getlist('name')
 
+    tags = Tag.query.filter(Tag.name.in_(tag_names)).all()
+
+    print('*********************')
+    print('*********************')
+    print('*********************')
+    print(tags, 'near line 146')
+    print('*********************')
+    print('*********************')
+    print('*********************')
+
+    # create a new Post object and add it to the database session
     new_post = Post(title=title, content=content, user_id=user_id)
     db.session.add(new_post)
     db.session.commit()
 
-    return redirect(f'/users/{user.id}')
+    # associate the new Post object with the selected Tag objects
+    # Associate the post with the tags
+    for tag in tags:
+        post_tag = PostTag(post=new_post, tag=tag)
+        db.session.add(post_tag)
+
+    # Commit the changes to the database
+    db.session.commit()
+
+    # commit the changes to the database
+
+    return redirect(f'/users/{user_id}')
 
 
-@app.route('/posts/<int:post_id>')
+@ app.route('/posts/<int:post_id>')
 def show_users_post(post_id):
     """
     This route shows a specific post and the user who created it.
@@ -148,10 +167,16 @@ def show_users_post(post_id):
     post = Post.query.get(post_id)
     user = User.query.get(post.user_id)
 
-    return render_template('show_user_post.html', post=post, user=user)
+    # show posts
+    tags = Tag.query.join(PostTag).filter(PostTag.post_id == post_id).all()
+    print('******************')
+    print(tags, 'near line 165')
+    print('******************')
+
+    return render_template('show_user_post.html', post=post, user=user, tags=tags)
 
 
-@app.route('/posts/<int:post_id>/edit')
+@ app.route('/posts/<int:post_id>/edit')
 def display_edit_form(post_id):
     """
     This route allows the user to edit a specific post by displaying a form.
@@ -160,7 +185,7 @@ def display_edit_form(post_id):
     return render_template('edit_post.html', post=post)
 
 
-@app.route('/posts/<int:post_id>/edit', methods=['POST'])
+@ app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def submit_users_edits(post_id):
     """
     This route updates a post with new content submitted by the user.
@@ -176,7 +201,7 @@ def submit_users_edits(post_id):
     return redirect(f'/users/{user_id}')
 
 
-@app.route('/posts/<int:post_id>/delete', methods=['POST'])
+@ app.route('/posts/<int:post_id>/delete', methods=['POST'])
 def delete_post(post_id):
     """
     This route deletes a post from the database.
@@ -188,3 +213,65 @@ def delete_post(post_id):
     db.session.commit()
 
     return redirect(f'/users/{user_id}')
+
+
+@ app.route('/tags')
+def list_tags():
+    tags = Tag.query.all()
+
+    return render_template('tags_list.html', tags=tags)
+
+
+@ app.route('/tags/<int:tag_id>')
+def tags_details(tag_id):
+    post_w_tag = PostTag.query.filter_by(tag_id=tag_id).all()
+    tag = Tag.query.get(tag_id)
+
+    posts_ids = [post.post_id for post in post_w_tag]
+    posts = Post.query.filter(Post.id.in_(posts_ids)).all()
+
+    return render_template('tag_detail.html', tag=tag, posts=posts)
+
+
+@ app.route('/tags/new')
+def add_new_tag():
+
+    return render_template('tag_adder_form.html')
+
+
+@ app.route('/tags/new', methods=['POST'])
+def submit_new_tag_form():
+
+    name = request.form['name']
+    tag = Tag(name=name)
+    db.session.add(tag)
+    db.session.commit()
+
+    return redirect('/tags')
+
+
+@ app.route('/tags/<int:tag_id>/edit')
+def edit_tag(tag_id):
+    tag = Tag.query.get(tag_id)
+
+    return render_template('edit_tag.html', tag=tag)
+
+
+@ app.route('/tags/<int:tag_id>/edit', methods=['POST'])
+def submit_tag_edit(tag_id):
+    tag = Tag.query.get(tag_id)
+
+    tag.name = request.form['name']
+    db.session.commit()
+
+    return redirect('/tags')
+
+
+@ app.route('/tags/<int:tag_id>/delete', methods=['POST'])
+def delete_tag(tag_id):
+
+    tag = Tag.query.get(tag_id)
+    db.session.delete(tag)
+    db.session.commit()
+
+    return redirect('/tags')

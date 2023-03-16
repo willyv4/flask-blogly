@@ -6,6 +6,12 @@
 
   <p>by {{user.first_name}} {{user.last_name}}</p>
 
+  <section>
+    {% for tag in tags%}
+    <a href="/tags/{{ tag.id }}"><span>{{ tag.name }}</span></a>
+    {% endfor %}
+  </section>
+
   <a href="/posts/{{post.id}}/edit"
     ><button class="edit-button">Edit</button></a
   >

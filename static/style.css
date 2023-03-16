@@ -51,9 +51,10 @@ nav {
     border: none;
     height: 40px;
     width: 100px;
-    margin-top: -15px;
     border-radius: 2px;
     transition: .3s ease-in-out;
+    position: relative;
+    margin-top: 20px;
 }
 
 #add-button:hover {
@@ -218,5 +219,25 @@ label {
 /* ~~~~~~~~~~~~~~~~~~~~~~ forms and inputs ~~~~~~~~~~~~~~~~ */
 
 
+/* ~~~~~~~~~~~~~~~~~ tags list ~~~~~~~~~~~~~~~~ */
 
+section span {
+   background-color: rgb(34, 34, 34);  
+   padding: 2px;  
+   border-radius: 2px;
+   color: white;
+}
 
+#checkbox {
+    height: 10px;
+    width: 10px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .container label {
+    flex-basis: 25%; /* or any other value that works for your layout */
+  }
