@@ -1,16 +1,28 @@
-<link rel="stylesheet" href="/static/style.css" />
+{% extends "navbar.html" %} {% block title %} Home {% endblock %} {% block
+content %}
 
-{% include 'navbar.html' %}
+<div class="card mx-auto" style="max-width: 800px">
+  <div class="card-body">
+    <h1 class="title">Create a user</h1>
+    <form class="row g-3" action="/users/new" method="POST">
+      <div class="col-md-6">
+        <label for="first_name" class="form-label">First name</label>
+        <input type="text" class="form-control" name="first_name" required />
+      </div>
+      <div class="col-md-6">
+        <label for="last_name" class="form-label">Last name</label>
+        <input type="text" class="form-control" name="last_name" required />
+      </div>
+      <div class="col-md-12">
+        <label for="image_url" class="form-label">Image URL</label>
+        <input type="text" class="form-control" name="image_url" />
+      </div>
+      <div class="col-md-12 mt-3">
+        <button type="submit" class="btn btn-primary">Submit User</button>
+        <a href="/users" class="btn btn-secondary">Back</a>
+      </div>
+    </form>
+  </div>
+</div>
 
-<h1>Creat a user</h1>
-<form class="form" action="/users/new" method="POST">
-  <label for="first_name">First name</label>
-  <input type="text" name="first_name" required />
-  <label for="last_name">Last name</label>
-  <input type="text" name="last_name" required />
-  <label for="image_url">Image URL</label>
-  <input type="text" name="image_url" />
-  <button class="edit-button">Submit User</button>
-</form>
-
-<a href="/users"><button id="add-button">back</button></a>
+{%endblock%}

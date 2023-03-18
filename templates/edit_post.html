@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="/static/style.css" />
-
-{% include 'navbar.html' %}
+{% extends "navbar.html" %} {% block title %} Home {% endblock %} {% block content
+  %}
 
 <h1>Edit your post "{{post.title}}"</h1>
 <form class="form" action="/posts/{{post.id}}/edit" method="POST">
@@ -11,3 +10,4 @@
   <button class="edit-button">Edit</button>
 </form>
 <a href="/posts/{{post.id}}"><button id="add-button">back</button></a>
+{% endblock %}

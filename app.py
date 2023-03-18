@@ -132,14 +132,6 @@ def submit_add_user_form(user_id):
 
     tags = Tag.query.filter(Tag.name.in_(tag_names)).all()
 
-    print('*********************')
-    print('*********************')
-    print('*********************')
-    print(tags, 'near line 146')
-    print('*********************')
-    print('*********************')
-    print('*********************')
-
     # create a new Post object and add it to the database session
     new_post = Post(title=title, content=content, user_id=user_id)
     db.session.add(new_post)
@@ -169,9 +161,6 @@ def show_users_post(post_id):
 
     # show posts
     tags = Tag.query.join(PostTag).filter(PostTag.post_id == post_id).all()
-    print('******************')
-    print(tags, 'near line 165')
-    print('******************')
 
     return render_template('show_user_post.html', post=post, user=user, tags=tags)
 

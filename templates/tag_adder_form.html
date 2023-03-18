@@ -1,8 +1,19 @@
-<h1>Add Tag</h1>
-<form class="form" action="/tags/new" method="POST">
-  <label for="name">Tag name</label>
-  <input type="text" name="name" required />
-  <button class="edit-button">Add Tag</button>
-</form>
+{% extends "navbar.html" %} {% block title %} Home {% endblock %} {% block
+content %}
+<div class="container">
+  <h1 class="my-4">Add Tag</h1>
+  <form class="row g-3" action="/tags/new" method="POST">
+    <div class="col-md-6">
+      <label for="name" class="form-label">Tag name</label>
+      <input type="text" class="form-control" name="name" required />
+    </div>
+    <div class="col-12 mt-3">
+      <button type="submit" class="btn btn-primary">Add Tag</button>
+      <a href="/tags"
+        ><button type="button" class="btn btn-secondary">Cancel</button></a
+      >
+    </div>
+  </form>
+</div>
 
-<a href="/tags"><button id="add-button">Cancel</button></a>
+{%endblock%}

@@ -23,6 +23,9 @@ class User(db.Model):
     image_url = db.Column(db.String(
     ), default='https://th.bing.com/th?id=OIP.UYefmuqvYGCqQqZN9xaW8QHaGp&w=263&h=236&c=8&rs=1&qlt=90&o=6&dpr=2&pid=3.1&rm=2')
 
+    posts = db.relationship('Post', backref='user',
+                            cascade='all, delete-orphan')
+
     def __repr__(self):
         return f"<User {self.id} {self.first_name} {self.last_name} >"
 
@@ -46,7 +49,7 @@ class Tag(db.Model):
     __tablename__ = "tags"
 
     id = Column(db.Integer, primary_key=True, autoincrement=True)
-    name = Column(db.String(10), nullable=False, unique=True)
+    name = Column(db.Text, nullable=False, unique=True)
 
 
 class PostTag(db.Model):

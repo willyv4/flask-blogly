@@ -1,11 +1,11 @@
 from unittest import TestCase
-
+from models import db, User, Post, connect_db
 from app import app
-from models import db, User, Post
 
-# Use test database and don't clutter tests with SQL
+# configure app for testing
+app.config['TESTING'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///test_blogly'
-app.config['SQLALCHEMY_ECHO'] = False
+app.config['SQLALCHEMY_ECHO'] = True
 
 db.drop_all()
 db.create_all()

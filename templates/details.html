@@ -1,51 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/style.css" />
-
-    <title>Document</title>
-  </head>
-  <body>
-    {% include 'navbar.html' %}
-    <section class="user-details">
-      <div class="user-blob">
-        <img id="user-img" src="{{user.image_url}}" alt="nothing" />
-        <h1>{{ user.first_name }} {{user.last_name}}</h1>
-
-        <a href="/users/{{user.id}}/edit"
-          ><button class="edit-button">Edit {{user.first_name}}</button></a
-        >
-
-        <form method="POST" action="/users/{{ user.id }}/delete">
-          <input type="hidden" name="_method" value="{{user.id}}" />
-          <button type="submit" class="delete-button">
-            Delete {{user.first_name}}
-          </button>
-        </form>
-      </div>
-
-      <div class="user-posts-card">
-        <div class="user-header2">
-          <h1 class="title">Posts</h1>
-          <a href="/users/{{user.id}}/posts/new"
-            ><button id="add-button">Add Post</button></a
+{% extends "navbar.html" %} {% block title %} Home {% endblock %} {% block
+content %}
+<section class="user-details">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <img
+          id="user-img"
+          src="{{user.image_url}}"
+          class="card-img-top"
+          alt="User Image"
+        />
+        <div class="card-body">
+          <h1 class="card-title">{{ user.first_name }} {{user.last_name}}</h1>
+          <a href="/users/{{user.id}}/edit" class="btn btn-primary"
+            >Edit {{user.first_name}}</a
           >
+          <form method="POST" action="/users/{{ user.id }}/delete" class="mt-2">
+            <input type="hidden" name="_method" value="{{user.id}}" />
+            <button type="submit" class="btn btn-danger">
+              Delete {{user.first_name}}
+            </button>
+          </form>
         </div>
-        {% if posts %}
-        <ul>
-          {% for post in posts %}
-
-          <li>
-            <a href="/posts/{{post.id}}">{{post.title}}</a>
-          </li>
-          {% endfor %} {% else %}
-          <h3>You haven't posted yet</h3>
-          {% endif %}
-        </ul>
       </div>
-    </section>
-  </body>
-</html>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div
+            class="user-header2 d-flex justify-content-between align-items-center"
+          >
+            <h1 class="card-title">Posts</h1>
+            <a href="/users/{{user.id}}/posts/new" class="btn btn-primary"
+              >Add Post</a
+            >
+          </div>
+          {% if posts %}
+          <ul class="list-group list-group-flush">
+            {% for post in posts %}
+            <li class="list-group-item">
+              <a href="/posts/{{post.id}}" class="card-link">{{post.title}}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <div class="card-body">
+            <h3 class="card-text">You haven't posted yet</h3>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock%}

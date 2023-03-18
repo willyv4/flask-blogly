@@ -1,15 +1,45 @@
-<link rel="stylesheet" href="/static/style.css" />
-{% include 'navbar.html' %}
+{% extends "navbar.html" %} {% block title %} Home {% endblock %} {% block
+content %}
+<div class="container">
+  <h1 class="my-4">Edit {{ user.first_name }}</h1>
+  <form class="row g-3" action="/users/{{ user_id }}/edit" method="POST">
+    <input type="hidden" name="user_id" value="{{ user_id }}" />
+    <div class="col-md-6">
+      <label for="first_name" class="form-label">First name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="first_name"
+        value="{{ user.first_name }}"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="last_name" class="form-label">Last name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="last_name"
+        value="{{ user.last_name }}"
+        required
+      />
+    </div>
+    <div class="col-md-12">
+      <label for="image_url" class="form-label">Image URL</label>
+      <input
+        type="text"
+        class="form-control"
+        name="image_url"
+        value="{{ user.image_url }}"
+      />
+    </div>
+    <div class="col-12 mt-3">
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <a href="/users/{{ user.id }}"
+        ><button type="button" class="btn btn-secondary">Cancel</button></a
+      >
+    </div>
+  </form>
+</div>
 
-<h1>Edit {{ user.first_name}}</h1>
-<form class="form" action="/users/{{ user_id }}/edit" method="POST">
-  <input type="hidden" name="user_id" value="{{ user_id }}" />
-  <label for="first_name">First name</label>
-  <input type="text" name="first_name" required />
-  <label for="last_name">Last name</label>
-  <input type="text" name="last_name" required />
-  <label for="image_url">Image URL</label>
-  <input type="text" name="image_url" />
-  <button class="edit-button">Save Changes</button>
-</form>
-<a href="/users/{{ user.id }}"><button id="add-button">Cancel</button></a>
+{% endblock %}

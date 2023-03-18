@@ -1,20 +1,48 @@
-<nav>
-  <a class="nav-bar" href="/users">
-    <svg
-      id="img-nav"
-      stroke="currentColor"
-      fill="currentColor"
-      stroke-width="0"
-      viewBox="0 0 24 24"
-      height="1em"
-      width="1em"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g>
-        <path fill="none" d="M0 0h24v24H0z"></path>
-        <path
-          d="M21 20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.49a1 1 0 0 1 .386-.79l8-6.222a1 1 0 0 1 1.228 0l8 6.222a1 1 0 0 1 .386.79V20zm-2-1V9.978l-7-5.444-7 5.444V19h14zM7 15h10v2H7v-2z"
-        ></path>
-      </g></svg
-  ></a>
-</nav>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <title>{% block title %} USERS {% endblock %}</title>
+  </head>
+  <body>
+    <nav class="navbar bg-dark">
+      <a class="navbar-brand" href="/users">
+        <svg
+          id="img-nav"
+          stroke="currentColor"
+          fill="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          height="1.8em"
+          width="1.8em"
+          class="bg-light rounded align-middle"
+        >
+          xmlns="http://www.w3.org/2000/svg" >
+          <g>
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path
+              d="M21 20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.49a1 1 0 0 1 .386-.79l8-6.222a1 1 0 0 1 1.228 0l8 6.222a1 1 0 0 1 .386.79V20zm-2-1V9.978l-7-5.444-7 5.444V19h14zM7 15h10v2H7v-2z"
+            ></path>
+          </g>
+        </svg>
+      </a>
+
+      <button class="btn btn-light">
+        <a href="/tags/new">Add Tags</a>
+      </button>
+    </nav>
+
+    <br />
+    <br />
+
+    <main>{% block content %} {% endblock %}</main>
+  </body>
+</html>

@@ -1,16 +1,26 @@
-<link rel="stylesheet" href="/static/style.css" />
-<h1>{{ tag.name }}</h1>
+{% extends "navbar.html" %} {% block title %} Home {% endblock %} {% block
+content %}
+<div class="container">
+  <div class="row my-4">
+    <div class="col">
+      <h1>{{ tag.name }}</h1>
+    </div>
+    <div class="col-auto">
+      <a href="/tags/{{tag.id}}/edit" class="btn btn-primary"> Edit Tag </a>
+    </div>
+    <div class="col-auto">
+      <form action="/tags/{{tag.id}}/delete" method="POST">
+        <button class="btn btn-danger">Delete Tag</button>
+      </form>
+    </div>
+  </div>
+  <ul class="list-group">
+    {% for post in posts %}
+    <li class="list-group-item">
+      <a href="/posts/{{post.id}}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 
-<ul>
-  {% for post in posts %}
-  <li><a href="/posts/{{post.id}}">{{ post.title }}</a></li>
-  {% endfor %}
-</ul>
-
-<a href="/tags/{{tag.id}}/edit"
-  ><button class="edit-button">Edit Tag</button></a
->
-
-<form action="/tags/{{tag.id}}/delete" method="POST">
-  <button class="delete-button">Delete tag</button>
-</form>
+{% endblock %}

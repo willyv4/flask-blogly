@@ -1,23 +1,41 @@
-<link rel="stylesheet" href="/static/style.css" />
-<div class="form">
-  <h1>{{ post.title}}</h1>
+{% extends "navbar.html" %} {% block title %} Home {% endblock %} {% block
+content %}
 
-  <p>{{ post.content}}</p>
+<div class="container justify-content-center">
+  <div class="row justify-content-center">
+    <div class="card col-lg-8 col-md-10">
+      <div class="card-header">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <p>by {{ user.first_name }} {{ user.last_name }}</p>
+        <section>
+          <div class="btn-group">
+            {% for tag in tags %}
+            <a href="/tags/{{ tag.id }}"
+              ><button class="btn btn-sm btn-warning mb-3 mr-1">
+                {{ tag.name }}
+              </button></a
+            >
+            {% endfor %}
+          </div>
+        </section>
+      </div>
 
-  <p>by {{user.first_name}} {{user.last_name}}</p>
+      <div class="btn-group card-body">
+        <a href="/posts/{{ post.id }}/edit">
+          <button class="btn btn-primary">Edit</button>
+        </a>
+        <form action="/posts/{{ post.id }}/delete" method="POST">
+          <input type="hidden" name="_method" value="{{ post.id }}" />
+          <button type="submit" class="btn btn-danger ml-1">Delete</button>
+        </form>
 
-  <section>
-    {% for tag in tags%}
-    <a href="/tags/{{ tag.id }}"><span>{{ tag.name }}</span></a>
-    {% endfor %}
-  </section>
-
-  <a href="/posts/{{post.id}}/edit"
-    ><button class="edit-button">Edit</button></a
-  >
-  <form action="/posts/{{post.id}}/delete" method="POST">
-    <input type="hidden" name="_method" value="{{post.id}}" />
-    <button type="submit" class="delete-button">Delete</button>
-  </form>
+        <a href="/users/{{ user.id }}">
+          <button class="btn btn-secondary ml-1">Cancel</button>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
-<a href="/users/{{user.id}}"><button id="add-button">Cancel</button></a>
+
+{%endblock%}
